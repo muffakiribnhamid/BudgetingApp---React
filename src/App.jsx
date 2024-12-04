@@ -1,56 +1,74 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import Error from './pages/Error'
-import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import Dashboard, { dashboardAction, dashboardLoader } from './pages/Dashboard'
-import Main, { mainLoader } from './layouts/main'
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
-//toastify
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+// Library
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
+// Layouts
+import Main, { mainLoader } from "./layouts/Main";
 
+// Actions
+import { logoutAction } from "./actions/logout";
+import { deleteBudget } from "./actions/deleteBudget";
 
-//actions
-import { logoutAction } from './actions/logout'
-
-
+// Routes
+import Dashboard, { dashboardAction, dashboardLoader } from "./pages/Dashboard";
+import Error from "./pages/Error";
+import BudgetPage, { budgetAction, budgetLoader } from "./pages/BudgetPage";
+import ExpensesPage, {
+  expensesAction,
+  expensesLoader,
+} from "./pages/ExpensePage";
 
 const router = createBrowserRouter([
- 
   {
-    path : '/',
-    element : <Main/>,
-    loader : mainLoader,
-    errorElement : <Error/>,
-    children : [
+    path: "/",
+    element: <Main />,
+    loader: mainLoader,
+    errorElement: <Error />,
+    children: [
       {
-        path : '/',
-        element : <Dashboard/>,
-        action : dashboardAction,
-        loader : dashboardLoader,
-        errorElement : <Error/>
+        index: true,
+        element: <Dashboard />,
+        loader: dashboardLoader,
+        action: dashboardAction,
+        errorElement: <Error />,
       },
       {
-        path: 'logout',
-        action: logoutAction
-      }
-    ]
-  }
-])
+        path: "budget/:id",
+        element: <BudgetPage />,
+        loader: budgetLoader,
+        action: budgetAction,
+        errorElement: <Error />,
+        children: [
+          {
+            path: "delete",
+            action: deleteBudget,
+          },
+        ],
+      },
+      {
+        path: "expenses",
+        element: <ExpensesPage />,
+        loader: expensesLoader,
+        action: expensesAction,
+        errorElement: <Error />,
+      },
+      {
+        path: "logout",
+        action: logoutAction,
+      },
+    ],
+  },
+]);
 
 function App() {
-  const [count, setCount] = useState(0)
-
- 
-
   return (
-   <div className="App">
-    <RouterProvider router={router} />
-    <ToastContainer/>
-   </div>
-  )
+    <div className="App">
+      <RouterProvider router={router} />
+      <ToastContainer />
+    </div>
+  );
 }
 
-export default App
+export default App;

@@ -1,34 +1,32 @@
-//react imports
+// rrd imports
+import { Outlet, useLoaderData } from "react-router-dom";
 
-import React from 'react'
-import { fetchData } from '../helpers'
-import { Outlet, useLoaderData, useRouteLoaderData } from 'react-router-dom'
+// assets
+import wave from "../assets/wave.svg";
 
+// components
+import Nav from "../components/Navbar.jsx";
 
-//assets
+//  helper functions
+import { fetchData } from "../helpers"
 
-import wave from "../assets/wave.svg"
-
-//components
-import Navbar from '../components/Navbar'
-
+// loader
 export function mainLoader() {
-    const userName = fetchData('userName')
-    return {userName}
+  const userName = fetchData("userName");
+  return { userName }
 }
 
-function Main() {
-    const {userName} = useLoaderData()
-  return (
-    <div className='layout'>
-        <Navbar userName={userName}/>
-        <main>
-            <Outlet/>
-        </main>
-        <img src={wave} alt="" />
-    </div>
+const Main = () => {
+  const { userName } = useLoaderData()
 
+  return (
+    <div className="layout">
+      <Nav userName={userName} />
+      <main>
+        <Outlet />
+      </main>
+      <img src={wave} alt="" />
+    </div>
   )
 }
-
 export default Main
