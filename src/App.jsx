@@ -5,7 +5,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 // Layouts
-import Main, { mainLoader } from "./layouts/Main";
+import Main, { mainLoader } from "./layouts/main";
 
 // Actions
 import { logoutAction } from "./actions/logout";
