@@ -3,8 +3,17 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import Error from './pages/Error'
 import { createBrowserRouter,RouterProvider } from 'react-router-dom'
-import Dashboard, { dashboardLoader } from './pages/Dashboard'
+import Dashboard, { dashboardAction, dashboardLoader } from './pages/Dashboard'
 import Main, { mainLoader } from './layouts/main'
+
+//toastify
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
+
+
+//actions
+import { logoutAction } from './actions/logout'
 
 
 
@@ -19,12 +28,13 @@ const router = createBrowserRouter([
       {
         path : '/',
         element : <Dashboard/>,
+        action : dashboardAction,
         loader : dashboardLoader,
         errorElement : <Error/>
       },
       {
-        path : 'logout',
-        element : <h1>Log out</h1>
+        path: 'logout',
+        action: logoutAction
       }
     ]
   }
@@ -38,6 +48,7 @@ function App() {
   return (
    <div className="App">
     <RouterProvider router={router} />
+    <ToastContainer/>
    </div>
   )
 }

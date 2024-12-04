@@ -4,10 +4,8 @@ export const fetchData = (key) => {
     return JSON.parse(localStorage.getItem(key))
 }
 
-export async function logoutAction() {
-    //delete the user
+//delete item
 
-
-    //return redirect
-
+export const deleteItem = (key) => {
+    return localStorage.removeItem(key)
 }
